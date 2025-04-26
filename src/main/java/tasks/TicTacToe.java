@@ -11,16 +11,12 @@ public class TicTacToe {
     static final int gameSize = 3;
 
     public static void run() {
-        int gameTicks = 1;
         char[][] field = getNewField();
         printField(field);
-        while (true) {
-            gameTicks++;
-            playerMove(field);
-            checkWin(field, gameTicks);
-            computerMove(field);
+        for (int turns = 0; true; turns++) {
+            playerMove(field, (turns % 2) + 1);
             printField(field);
-            checkWin(field, gameTicks);
+            checkWin(field, turns);
         }
     }
 
@@ -36,9 +32,9 @@ public class TicTacToe {
 
         for (int i = 0; i < gameSize; i++) {
             if (Arrays.equals(field[i], playerWin)) {
-                win();
+                win(1);
             } else if (Arrays.equals(field[i], playerLoose)) {
-                loose();
+                win(2);
             }
             mainDiagonal[i] = field[i][i];
             secondDiagonal[i] = field[i][gameSize - i - 1];
@@ -49,54 +45,41 @@ public class TicTacToe {
 
         for (int i = 0; i < gameSize; i++) {
             if (Arrays.equals(transposedField[i], playerWin)) {
-                win();
+                win(1);
             } else if (Arrays.equals(mainDiagonal, playerWin) | Arrays.equals(secondDiagonal, playerWin)) {
-                win();
+                win(1);
             } else if (Arrays.equals(mainDiagonal, playerLoose) | Arrays.equals(secondDiagonal, playerLoose)) {
-                loose();
+                win(2);
             } else if (Arrays.equals(transposedField[i], playerLoose)) {
-                loose();
+                win(2);
             }
         }
 
-        if (gameTicks >= gameSize * gameSize) {
-            loose();
+        if (gameTicks + 1 >= gameSize * gameSize) {
+            draw();
         }
     }
 
-    private static void win() {
-        System.out.println("Вы выиграли");
+    private static void win(int player) {
+        System.out.printf("Игрок %d выиграл%n", player);
+        System.exit(0);
+    }
+    private static void draw() {
+        System.out.println("Ничья");
         System.exit(0);
     }
 
-    private static void loose() {
-        System.out.println("Вы проиграли");
-        System.exit(0);
-    }
-
-    private static void computerMove(char[][] field) {
+    private static void playerMove(char[][] field, int player) {
+        System.out.printf("Ход игрока %d, введите координаты вашего хода:%n", player);
         boolean isLegalMove = false;
-        while (isLegalMove == false) {
-            int x = (int) Math.floor(Math.random() * gameSize);
-            int y = (int) Math.floor(Math.random() * gameSize);
-
-            if (field[x][y] == empty) {
-                field[x][y] = tac;
-                isLegalMove = true;
-            }
-        }
-    }
-
-    private static void playerMove(char[][] field) {
-        System.out.println("Ваш ход, введите координаты вашего крестика:");
-        boolean isLegalMove = false;
-        while (isLegalMove == false) {
+        while (!isLegalMove) {
+            char playerSymbol = player == 1 ? tic : tac ;
             int x = scanner.nextInt() - 1;
             int y = scanner.nextInt() - 1;
 
             //можно использовать исключение, но мы пока "не умеем"
             if (x < gameSize && y < gameSize && field[x][y] == empty) {
-                field[x][y] = tic;
+                field[x][y] = playerSymbol;
                 isLegalMove = true;
             } else {
                 System.out.println("Такой ход невозможен, повторите ввод.");
@@ -122,6 +105,4 @@ public class TicTacToe {
             }
         }
     }
-
-
 }
