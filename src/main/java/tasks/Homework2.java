@@ -2,7 +2,7 @@ package tasks;
 
 import java.util.Scanner;
 
-public class Homework1 {
+public class Homework2 {
     static Scanner scanner = new Scanner(System.in);
 
     public static void runTasks() {
@@ -32,8 +32,10 @@ public class Homework1 {
 
     public static void task4() {
         System.out.println("Задание 4:");
-        for (int i = 1; i <= 14; i++) {
+        int i = 1;
+        while (i <= 14) {
             System.out.print(7 * i + (i == 14 ? "\n" : " "));
+            i++;
         }
     }
 }
