@@ -1,9 +1,12 @@
 package tasks;
 
+import tasks.homework6.Hospital;
+
 import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) {
-        TicTacToe.run();
+        Hospital hospital = new Hospital();
+        hospital.runClinic();
     }
 }
