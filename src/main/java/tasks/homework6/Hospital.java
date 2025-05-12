@@ -2,12 +2,11 @@ package tasks.homework6;
 
 public class Hospital {
     //можно сделать как надо, распихав каждый класс в отдельный файл, но мне лень и так всё нагляднее видно
+    static Surgeon surgeon = new Surgeon();
+    static Physician physician = new Physician();
+    static Dentist dentist = new Dentist();
 
-    Surgeon surgeon = new Surgeon();
-    Physician physician = new Physician();
-    Dentist dentist = new Dentist();
-
-    public void runClinic() {
+    public static void runClinic() {
         Patient patient = new Patient((int) ( Math.random() * 3) + 1);
         physician.getReception(patient);
     }
@@ -33,7 +32,7 @@ public class Hospital {
         }
     }
 
-    class Physician extends Doctor {
+    static class Physician extends Doctor {
 
         {
             this.name = "терапевт";
@@ -60,7 +59,7 @@ public class Hospital {
         }
     }
 
-    class Dentist extends Doctor {
+    static class Dentist extends Doctor {
 
         {
             this.name = "зубной";
@@ -71,7 +70,7 @@ public class Hospital {
         }
     }
 
-    class Patient {
+    static class Patient {
 
         private Doctor doctor;
         private int plan;
