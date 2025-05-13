@@ -1,9 +1,11 @@
 package tasks;
 
-import java.io.IOException;
+import tasks.homework6.Geometry;
+import tasks.homework6.Hospital;
 
 public class Main {
     public static void main(String[] args) {
-        TicTacToe.run();
+        Hospital.runClinic();
+        Geometry.runTest();
     }
 }
